@@ -1,0 +1,57 @@
+.submit {
+    max-width: 342px;
+    align-items: center;
+    margin: 0 auto;
+
+    .heading {
+        margin-top: 84px;
+        h1 {
+            font-family: "Helvetica Neue";
+            font-weight: 500;
+            font-size: 28px;
+            line-height: 38px;
+        }
+        p {
+            font-family: "Helvetica Neue";
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 24px;
+            color: #939393;
+        }
+    }
+    form {
+        div {
+            width: 100%;
+            justify-content: space-between;
+            input {
+                width: 64px;
+                border-radius: 8px;
+                height: 64px;
+            }
+        }
+        button {
+            margin-top: 125px;
+            width: 100%;
+            height: 50px;
+            border-radius: 12px;
+            border: 1px solid #939393;
+        }
+    }
+    .code {
+        font-family: "Helvetica Neue";
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        color: #007aff;
+        button {
+            font-family: "Helvetica Neue";
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            color: #007aff;
+            border: none;
+        }
+    }
+}
