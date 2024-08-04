@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Input } from "antd";
-import styles from "./index.module.scss";
-import type { GetProps } from "antd";
-import { RootState } from "../../../redux/store";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../redux/store";
+import { setRegisterData } from "../../../redux/slices/registerSlice";
+import Cookies from 'js-cookie';
+import type { GetProps } from "antd";
+import styles from './index.module.scss'
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
 const Submit: React.FC = () => {
+  const loggedinUser = useSelector((state: RootState) => state.register);
   const [countdown, setCountdown] = useState<number>(30);
   const [isCounting, setIsCounting] = useState<boolean>(true);
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const verificationCode = useSelector(
     (state: RootState) => state.verification.code
   );
@@ -48,16 +52,18 @@ const Submit: React.FC = () => {
     setCountdown(30);
     setIsCounting(true);
   };
-  
+
   const onFinish = (values: any) => {
     console.log(values);
     if (values.otp === verificationCode) {
+    
+      dispatch(setRegisterData(loggedinUser));
       navigate('/questions');
     } else {
       form.setFields([
         {
-          name: 'otp',
-          errors: ['Verification code is incorrect!'],
+          name: "otp",
+          errors: ["Verification code is incorrect!"],
         },
       ]);
     }
@@ -72,7 +78,7 @@ const Submit: React.FC = () => {
       <div className={styles.submit}>
         <div className={styles.heading}>
           <h1>Kodu daxil edin</h1>
-          <p>Telefonunuza aktivləşdirmə kodunu göndərildi +994 51 990 96 96</p>
+          <p>Telefonunuza aktivləşdirmə kodunu göndərildi {loggedinUser.phone}</p>
         </div>
         <Form
           form={form}

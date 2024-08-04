@@ -1,18 +1,25 @@
 import React, { useEffect } from "react";
-import styles from "./index.module.scss";
 import { Button } from "antd";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { RootState } from "../../../redux/store";
+import { toggleLike } from "../../../redux/slices/questionsSlice";
 import ToIco from "../../../assets/images/icons/toIco";
 import LikeIco from "../../../assets/images/icons/LikeIco";
 import LikeBtn from "../../../assets/images/icons/LikeBtn";
+import styles from "./index.module.scss";
+
 const Questions = () => {
+  const dispatch = useDispatch();
   const questions = useSelector((state: RootState) => state.questions);
 
   useEffect(() => {
     console.log(questions);
   }, [questions]);
+
+  const handleLikeClick = (index: number) => {
+    dispatch(toggleLike(index));
+  };
 
   return (
     <div className={styles.questions}>
@@ -32,7 +39,7 @@ const Questions = () => {
                   <LikeIco />
                 </span>
                 <span className={styles.count}>{question.count}</span>
-                <span>
+                <span onClick={() => handleLikeClick(idx)} >
                   <LikeBtn />
                 </span>
                 <span>Bəyən</span>
