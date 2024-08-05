@@ -1,13 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
+import { Iuser } from "../../types/index";
 
-interface RegisterState {
-  name: string;
-  phone: string;
-  email: string;
-}
 
-const loadStateFromCookie = (): RegisterState => {
+const loadStateFromCookie = (): Iuser => {
   const cookieValue = Cookies.get("registerData");
   if (cookieValue) {
     try {
@@ -19,17 +15,17 @@ const loadStateFromCookie = (): RegisterState => {
   return { name: "", phone: "", email: "" };
 };
 
-const saveStateToCookie = (state: RegisterState) => {
+const saveStateToCookie = (state: Iuser) => {
   Cookies.set("registerData", JSON.stringify(state), { expires: 7 });
 };
 
-const initialState: RegisterState = loadStateFromCookie();
+const initialState: Iuser = loadStateFromCookie();
 
 const registerSlice = createSlice({
   name: "register",
   initialState,
   reducers: {
-    setRegisterData: (state, action: PayloadAction<RegisterState>) => {
+    setRegisterData: (state, action: PayloadAction<Iuser>) => {
       const updatedState = { ...state, ...action.payload };
       saveStateToCookie(updatedState);
       return updatedState;

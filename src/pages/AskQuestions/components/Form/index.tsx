@@ -1,24 +1,16 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { Button, Form, Select, Input } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { addQuestion } from "../../../redux/slices/questionsSlice";
 import styles from "./index.module.scss";
-import { RootState } from "../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { addQuestion } from "../../../../redux/slices/questionsSlice";
+import { RootState } from "../../../../redux/store";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
-
-
-const AskQuestions: React.FC = () => {
-  const navigate = useNavigate();
+const AskQuestionForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const loggedinUser = useSelector((state: RootState) => state.register.name);
-  useEffect(() => {
-    const token = Cookies.get("registrationToken");
-    if (!token) {
-      navigate("/");
-    }
-  }, [navigate]);
   const onFinish = (values: any) => {
     dispatch(
       addQuestion({
@@ -37,10 +29,8 @@ const AskQuestions: React.FC = () => {
       navigate("/questions");
     });
   };
-
   return (
-    <div className={styles.ask}>
-      <h2>Sualınız</h2>
+    <>
       <Form
         className={styles.form}
         name="basic"
@@ -87,7 +77,7 @@ const AskQuestions: React.FC = () => {
           </Button>
         </div>
       </Form>
-    </div>
+    </>
   );
 };
 
@@ -106,4 +96,4 @@ const users: UserOption[] = [
   { value: "Faiq Abdullayev", label: "Faiq Abdullayev" },
 ];
 
-export default AskQuestions;
+export default AskQuestionForm;

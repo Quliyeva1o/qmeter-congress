@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { RootState } from "../../../redux/store";
-import { toggleLike } from "../../../redux/slices/questionsSlice";
-import ToIco from "../../../assets/images/icons/toIco";
-import LikeIco from "../../../assets/images/icons/LikeIco";
-import LikeBtn from "../../../assets/images/icons/LikeBtn";
+import { RootState } from "../../redux/store";
+import { toggleLike } from "../../redux/slices/questionsSlice";
+import ToIco from "../../assets/images/icons/toIco";
+import LikeIco from "../../assets/images/icons/LikeIco";
+import { LikeOutlined, LikeFilled } from '@ant-design/icons';
 import styles from "./index.module.scss";
 import Cookies from "js-cookie";
 
@@ -14,19 +14,24 @@ const Questions = () => {
   const dispatch = useDispatch();
   const questions = useSelector((state: RootState) => state.questions);
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(questions);
-  }, [questions]);
+  const [likedQuestions, setLikedQuestions] = useState<number[]>([]);
 
-  const handleLikeClick = (index: number) => {
-    dispatch(toggleLike(index));
-  };
+
+
   useEffect(() => {
     const token = Cookies.get("registrationToken");
     if (!token) {
       navigate("/");
     }
   }, [navigate]);
+
+  const handleLikeClick = (index: number) => {
+    dispatch(toggleLike(index));
+    setLikedQuestions((prev) => 
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
+  };
+
   return (
     <div className={styles.questions}>
       <div className={styles.heading}>
@@ -51,10 +56,14 @@ const Questions = () => {
                   <LikeIco />
                 </span>
                 <span className={styles.count}>{question.count}</span>
-                <span onClick={() => handleLikeClick(idx)}>
-                  <LikeBtn />
-                </span>
-                <span>Bəyən</span>
+                <Button
+                  onClick={() => handleLikeClick(idx)}
+                  type="link"
+                  icon={likedQuestions.includes(idx) ? <LikeFilled style={{ color: '#007AFF' }} /> : <LikeOutlined />}
+                  className={likedQuestions.includes(idx) ? styles.liked : ''}
+                >
+                  Bəyən
+                </Button>
               </div>
             </div>
           </div>
