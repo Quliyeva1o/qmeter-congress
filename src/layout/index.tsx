@@ -5,12 +5,10 @@ import styles from './index.module.scss'
 
 const Layout = () => {
   return (
-    <>
       <div className={styles.layout}>
         <Logo />
         <Outlet />
       </div>
-    </>
   );
 };
 
