@@ -7,9 +7,9 @@ import store from "./redux/store";
 
 function App() {
   const rooter = createBrowserRouter(ROOT);
-
   return (
     <>
+    
       <Provider store={store}>
         <RouterProvider router={rooter} />
       </Provider>
