@@ -27,9 +27,7 @@ const Register: React.FC = () => {
       console.log("Success:", values);
       const code:string = generateVerificationCode();
       const token = generateToken();
-      
       Cookies.set('registrationToken', token, { expires: 1 }); 
-
       dispatch(setVerificationCode(code)); 
       dispatch(setRegisterData(values)); 
       message.success(`Registration successful! Your verification code is ${code}`);
