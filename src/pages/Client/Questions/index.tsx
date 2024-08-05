@@ -8,6 +8,7 @@ import ToIco from "../../../assets/images/icons/toIco";
 import LikeIco from "../../../assets/images/icons/LikeIco";
 import LikeBtn from "../../../assets/images/icons/LikeBtn";
 import styles from "./index.module.scss";
+ 
 
 const Questions = () => {
   const dispatch = useDispatch();
@@ -29,11 +30,13 @@ const Questions = () => {
       </div>
       {questions.questions.length > 0 ? (
         questions.questions.map((question, idx) => (
-          <div key={idx} className={styles.questionItem}>
+          <div key={idx} className={styles.questionItem} >
             <div>
               <span>{question.from}</span> <ToIco />{" "}
               <span className={styles.to}>{question.to}</span>
+              <div>
               <p>{question.question}</p>
+              </div>
               <div className={styles.like}>
                 <span>
                   <LikeIco />
