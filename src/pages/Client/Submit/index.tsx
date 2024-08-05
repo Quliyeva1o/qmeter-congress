@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../redux/store";
 import { setRegisterData } from "../../../redux/slices/registerSlice";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import type { GetProps } from "antd";
-import styles from './index.module.scss'
+import styles from "./index.module.scss";
+import { v4 as uuidv4 } from "uuid";
+import { setVerificationCode } from "../../../redux/slices/verificationSlice";
 
 type OTPProps = GetProps<typeof Input.OTP>;
 
@@ -16,6 +18,14 @@ const Submit: React.FC = () => {
   const [isCounting, setIsCounting] = useState<boolean>(true);
   const [form] = Form.useForm();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = Cookies.get("registrationToken");
+    if (token) {
+      navigate("/questions");
+    }
+  }, [navigate]);
+
   const dispatch = useDispatch();
   const verificationCode = useSelector(
     (state: RootState) => state.verification.code
@@ -40,7 +50,7 @@ const Submit: React.FC = () => {
     return () => clearInterval(timer);
   }, [isCounting]);
 
-  const onChange: OTPProps["onChange"] = (text) => {
+  const onChange: OTPProps["onChange"] = (text: any) => {
     console.log("onChange:", text);
   };
 
@@ -49,16 +59,32 @@ const Submit: React.FC = () => {
   };
 
   const handleResend = () => {
+    const newCode = generateVerificationCode();
+    dispatch(setVerificationCode(newCode));
+    Cookies.set("verificationCode", newCode);
+
     setCountdown(30);
     setIsCounting(true);
+
+    message.success(`New code was sended! Your verification code is ${newCode}`);
+
+  };
+
+  const generateVerificationCode = (): string => {
+    return Math.floor(1000 + Math.random() * 9000).toString();
+  };
+  const generateToken = (): string => {
+    return uuidv4();
   };
 
   const onFinish = (values: any) => {
     console.log(values);
     if (values.otp === verificationCode) {
-    
       dispatch(setRegisterData(loggedinUser));
-      navigate('/questions');
+      const token = generateToken();
+      Cookies.set("registrationToken", token, { expires: 1 });
+
+      navigate("/questions");
     } else {
       form.setFields([
         {
@@ -78,7 +104,9 @@ const Submit: React.FC = () => {
       <div className={styles.submit}>
         <div className={styles.heading}>
           <h1>Kodu daxil edin</h1>
-          <p>Telefonunuza aktivləşdirmə kodunu göndərildi {loggedinUser.phone}</p>
+          <p>
+            Telefonunuza aktivləşdirmə kodunu göndərildi {loggedinUser.phone}
+          </p>
         </div>
         <Form
           form={form}

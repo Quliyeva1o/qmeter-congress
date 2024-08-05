@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { Button } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../../../redux/store";
 import { toggleLike } from "../../../redux/slices/questionsSlice";
 import ToIco from "../../../assets/images/icons/toIco";
 import LikeIco from "../../../assets/images/icons/LikeIco";
 import LikeBtn from "../../../assets/images/icons/LikeBtn";
 import styles from "./index.module.scss";
- 
+import Cookies from "js-cookie";
 
 const Questions = () => {
   const dispatch = useDispatch();
   const questions = useSelector((state: RootState) => state.questions);
-
+  const navigate = useNavigate();
   useEffect(() => {
     console.log(questions);
   }, [questions]);
@@ -21,7 +21,12 @@ const Questions = () => {
   const handleLikeClick = (index: number) => {
     dispatch(toggleLike(index));
   };
-
+  useEffect(() => {
+    const token = Cookies.get("registrationToken");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate]);
   return (
     <div className={styles.questions}>
       <div className={styles.heading}>
@@ -30,19 +35,23 @@ const Questions = () => {
       </div>
       {questions.questions.length > 0 ? (
         questions.questions.map((question, idx) => (
-          <div key={idx} className={styles.questionItem} style={{ animationDelay: `${idx * 0.2}s` }} >
+          <div
+            key={idx}
+            className={styles.questionItem}
+            style={{ animationDelay: `${idx * 0.2}s` }}
+          >
             <div>
               <span>{question.from}</span> <ToIco />{" "}
               <span className={styles.to}>{question.to}</span>
               <div>
-              <p>{question.question}</p>
+                <p>{question.question}</p>
               </div>
               <div className={styles.like}>
                 <span>
                   <LikeIco />
                 </span>
                 <span className={styles.count}>{question.count}</span>
-                <span onClick={() => handleLikeClick(idx)} >
+                <span onClick={() => handleLikeClick(idx)}>
                   <LikeBtn />
                 </span>
                 <span>Bəyən</span>
