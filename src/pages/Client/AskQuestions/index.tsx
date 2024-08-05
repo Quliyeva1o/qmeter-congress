@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Button, Form, Select, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { addQuestion } from "../../../redux/slices/questionsSlice";
@@ -6,12 +6,19 @@ import styles from "./index.module.scss";
 import { RootState } from "../../../redux/store";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
+
 
 const AskQuestions: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedinUser = useSelector((state: RootState) => state.register.name);
-
+  useEffect(() => {
+    const token = Cookies.get("registrationToken");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate]);
   const onFinish = (values: any) => {
     dispatch(
       addQuestion({
