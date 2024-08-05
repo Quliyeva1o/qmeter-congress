@@ -30,7 +30,7 @@ const Questions = () => {
       </div>
       {questions.questions.length > 0 ? (
         questions.questions.map((question, idx) => (
-          <div key={idx} className={styles.questionItem} >
+          <div key={idx} className={styles.questionItem} style={{ animationDelay: `${idx * 0.2}s` }} >
             <div>
               <span>{question.from}</span> <ToIco />{" "}
               <span className={styles.to}>{question.to}</span>
