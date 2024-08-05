@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 import { useDispatch } from "react-redux";
 import { FormProps } from "antd";
-import { setRegisterData } from "../../redux/slices/registerSlice";
-import { setVerificationCode } from "../../redux/slices/verificationSlice";
+import { setRegisterData } from "../../store/slices/registerSlice";
+import { setVerificationCode } from "../../store/slices/verificationSlice";
 import Cookies from "js-cookie";
 import { UserTypes } from "../../types";
 

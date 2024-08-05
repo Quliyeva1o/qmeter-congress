@@ -2,8 +2,8 @@ import React from "react";
 import { Button, Form, Select, Input } from "antd";
 import styles from "./index.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addQuestion } from "../../../../redux/slices/questionsSlice";
-import { RootState } from "../../../../redux/store";
+import { addQuestion } from "../../../../store/slices/questionsSlice";
+import { RootState } from "../../../../store/store";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const AskQuestionForm = () => {
