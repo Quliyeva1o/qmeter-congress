@@ -40,7 +40,7 @@ const AskQuestionForm = () => {
       >
         <Form.Item
           name="user"
-          rules={[{ required: true, message: "Please select a user!" }]}
+          rules={[{ required: true, message: "Sualı ünvanladığınız şəxsi seçin!" }]}
         >
           <Select
             className={styles.select}
@@ -54,12 +54,12 @@ const AskQuestionForm = () => {
         <Form.Item
           className={styles.textarea}
           name="question"
-          rules={[{ required: true, message: "Please enter your question!" }]}
+          rules={[{ required: true, message: "Zəhmət olmasa sualınızı daxil edin!" }]}
         >
           <Input.TextArea
             showCount
             maxLength={100}
-            placeholder="disable resize"
+            placeholder="Sualınızı ətraflı şəkildə qeyd edə bilərsiniz..."
             style={{ resize: "none" }}
           />
         </Form.Item>
