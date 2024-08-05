@@ -7,7 +7,7 @@ import { FormProps } from "antd";
 import { setRegisterData } from "../../store/slices/registerSlice";
 import { setVerificationCode } from "../../store/slices/verificationSlice";
 import Cookies from "js-cookie";
-import { UserTypes } from "../../types";
+import { FormOption, UserTypes } from "../../types";
 
 const Register: React.FC = () => {
   const dispatch = useDispatch();
@@ -83,11 +83,7 @@ const Register: React.FC = () => {
 
 export default Register;
 
-interface FormOption {
-  name: keyof UserTypes;
-  placeholder: string;
-  rules: any[];
-}
+
 
 const formOptions: FormOption[] = [
   {
