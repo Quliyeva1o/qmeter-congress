@@ -2,7 +2,6 @@
     max-width: 342px;
     align-items: center;
     position: relative;
-    // margin: 0 auto;
     height: 70vh;
 
     .heading {
@@ -80,9 +79,7 @@
             font-size: 14px;
             line-height: 22px;
             color: #939393;
-            svg {
-                cursor: pointer;
-            }
+           
         }
         .count {
             color: #000;
@@ -102,3 +99,8 @@
       opacity: 1;
     }
   }
+
+  .liked{
+    span{
+    color: #007AFF!important;
+  }}

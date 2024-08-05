@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Input, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../../../redux/store";
-import { setRegisterData } from "../../../redux/slices/registerSlice";
+import { RootState } from "../../redux/store";
+import { setRegisterData } from "../../redux/slices/registerSlice";
 import Cookies from "js-cookie";
 import type { GetProps } from "antd";
 import styles from "./index.module.scss";
 import { v4 as uuidv4 } from "uuid";
-import { setVerificationCode } from "../../../redux/slices/verificationSlice";
+import { setVerificationCode } from "../../redux/slices/verificationSlice";
 
 type OTPProps = GetProps<typeof Input.OTP>;
 

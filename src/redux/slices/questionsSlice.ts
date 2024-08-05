@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Question } from '../../types';
 
-interface Question {
-  from: string;
-  to: string;
-  question: string;
-  count: number;
-  liked: boolean; }
 
 interface QuestionsState {
   questions: Question[];
