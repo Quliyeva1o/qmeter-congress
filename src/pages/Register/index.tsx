@@ -7,7 +7,7 @@ import { FormProps } from "antd";
 import { setRegisterData } from "../../redux/slices/registerSlice";
 import { setVerificationCode } from "../../redux/slices/verificationSlice";
 import Cookies from "js-cookie";
-import { Iuser } from "../../types";
+import { UserTypes } from "../../types";
 
 const Register: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const Register: React.FC = () => {
     }
   }, [navigate]);
 
-  const onFinish: FormProps<Iuser>["onFinish"] = (values) => {
+  const onFinish: FormProps<UserTypes>["onFinish"] = (values) => {
     try {
       const code: string = generateVerificationCode();
       dispatch(setVerificationCode(code));
@@ -40,7 +40,7 @@ const Register: React.FC = () => {
     }
   };
 
-  const onFinishFailed: FormProps<Iuser>["onFinishFailed"] = (errorInfo) => {
+  const onFinishFailed: FormProps<UserTypes>["onFinishFailed"] = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
@@ -84,7 +84,7 @@ const Register: React.FC = () => {
 export default Register;
 
 interface FormOption {
-  name: keyof Iuser;
+  name: keyof UserTypes;
   placeholder: string;
   rules: any[];
 }

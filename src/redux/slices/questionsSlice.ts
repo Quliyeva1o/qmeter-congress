@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Question } from '../../types';
+import { QuestionTypes } from '../../types';
 
 
 interface QuestionsState {
-  questions: Question[];
+  questions: QuestionTypes[];
 }
 
 const initialState: QuestionsState = {
@@ -14,7 +14,7 @@ const questionsSlice = createSlice({
   name: 'questions',
   initialState,
   reducers: {
-    addQuestion(state, action: PayloadAction<Omit<Question, 'count' | 'liked'>>) {
+    addQuestion(state, action: PayloadAction<Omit<QuestionTypes, 'count' | 'liked'>>) {
       state.questions.push({ ...action.payload, count: 0, liked: false });
     },
     toggleLike(state, action: PayloadAction<number>) {

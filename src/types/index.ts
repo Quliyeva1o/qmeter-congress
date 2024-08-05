@@ -1,11 +1,11 @@
-export  interface Iuser {
+export  interface UserTypes {
   name: string;
   phone: string;
   email: string;
 }
 
 
-export interface Question {
+export interface QuestionTypes {
     from: string;
     to: string;
     question: string;
